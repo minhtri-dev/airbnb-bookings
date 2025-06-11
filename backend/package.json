@@ -1,0 +1,36 @@
+{
+  "name": "backend-template",
+  "version": "1.0.0",
+  "description": "Template for backend using Expressjs + TypeScript",
+  "private": true,
+  "main": "server.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "NODE_ENV=production node dist/server.js",
+    "dev": "NODE_ENV=development nodemon --watch 'src/**/*.ts' --exec 'tsx' server.ts",
+    "lint": "eslint 'src/**/*.ts'",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.34.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "vitest": "^3.2.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.0.0",
+    "@typescript-eslint/parser": "^8.34.0",
+    "eslint": "^9.28.0",
+    "eslint-config-prettier": "^10.1.5",
+    "nodemon": "^3.1.10",
+    "prettier": "^3.5.3",
+    "tsx": "^4.20.1",
+    "typescript": "^5.8.3"
+  }
+}
