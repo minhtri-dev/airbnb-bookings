@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { fetchAllListings, fetchListingById, searchListings } from '@/services/database/listing.service'
+import { fetchAllListings, fetchListingById, searchListings } from '@/services/database/listings.service'
 
 export const getListings = async (
   req: Request,

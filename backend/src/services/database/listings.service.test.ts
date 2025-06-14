@@ -3,10 +3,11 @@ import { MongoMemoryServer } from 'mongodb-memory-server'
 import { promises as fs } from 'fs'
 import path from 'path'
 import { describe, beforeAll, beforeEach, afterAll, it, expect } from 'vitest'
-import { fetchAllListings, fetchListingById, searchListings } from './listing.service'
+import { fetchAllListings, fetchListingById, searchListings } from './listings.service'
 import { ListingModel } from '@/models/listings.model'
 
 // A JSON reviver to convert MongoDB Extended JSON objects to native JS types.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function reviver(key: string, value: any) {
   if (value && typeof value === 'object') {
     if ('$date' in value) {
