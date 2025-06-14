@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { PropertyFilterForm, PropertyCard } from './components'
 import type { IListing } from 'interfaces/Listing'
-import { fetchListings } from 'services/express.api'
+import { fetchListings, fetchFilteredListings } from 'services/express.api'
 import { Loading } from '@components'
 
 const PAGE_SIZE = 5
@@ -18,6 +18,24 @@ const Home = () => {
   })
   const [isLoading, setIsLoading] = useState(false)
 
+  useEffect(() => {
+      setIsLoading(true)
+      async function loadListings() {
+        const queryParams = new URLSearchParams()
+        queryParams.append('page', "1")
+        queryParams.append('limit', String(PAGE_SIZE))
+
+        const response = await fetchListings(1, PAGE_SIZE)
+        response as { docs: IListing[], totalPages: number }
+        setListings(response.docs)
+        setTotalPages(response.totalPages)
+        setIsLoading(false)
+      }
+      loadListings()
+      
+    },[]
+  ) 
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setIsLoading(true)
@@ -29,8 +47,8 @@ const Home = () => {
       // Save filters for pagination
       setFilters({ location, propertyType, bedrooms })
       setCurrentPage(1)
-
-      const data = await fetchListings(location, propertyType, bedrooms, 1, PAGE_SIZE)
+      
+      const data = await fetchFilteredListings(location, propertyType, bedrooms, 1, PAGE_SIZE)
       setListings(data.docs)
       setTotalPages(data.totalPages)
     } catch (error) {
@@ -46,7 +64,12 @@ const Home = () => {
     try {
       setCurrentPage(page)
       const { location, propertyType, bedrooms } = filters
-      const data = await fetchListings(location, propertyType, bedrooms, page, PAGE_SIZE)
+      let data
+      if (location === '') {
+        data = await fetchListings(page, PAGE_SIZE)
+      } else {
+        data = await fetchFilteredListings(location, propertyType, bedrooms, page, PAGE_SIZE)
+      }
       setListings(data.docs)
       setTotalPages(data.totalPages)
     } catch (error) {
