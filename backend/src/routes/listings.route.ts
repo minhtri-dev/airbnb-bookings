@@ -5,6 +5,6 @@ const router = Router()
 
 router.get('/listings', getListings)
 router.get('/listings/:id', getListingbyId)
-router.get('/listings/search', getFilteredListings)
+router.get('/filter/listings', getFilteredListings)
 
 export default router

@@ -21,14 +21,15 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
 
-    // /* Path Aliases */
-    // "baseUrl": "./src",
-    // "paths": {
-    //   "@/*": ["."],
-    //   "@components": ["components/index"]
-    // }
+    /* Path Aliases */
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["."],
+      "@components": ["components/index"],
+      "@types/*": ["types/*"]
+    }
   },
   "include": ["src"]
 }
