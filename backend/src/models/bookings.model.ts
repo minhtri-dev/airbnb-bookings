@@ -1,13 +1,13 @@
 import mongoose from 'mongoose'
 
 const GuestSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    age: { type: Number, required: true },
+    name: { type: String },
+    age: { type: Number },
 }, { _id: false })
 
 const BookingSchema = new mongoose.Schema({
-    bookingId: { type: mongoose.Schema.Types.ObjectId, required: true },
-    clientId: { type: mongoose.Schema.Types.ObjectId, ref: 'clients', required: true },
+    bookingId: { type: mongoose.Schema.Types.ObjectId },
+    clientId: { type: mongoose.Schema.Types.ObjectId, ref: 'clients', },
     listingId: { type: String, ref: 'listings', required: true },
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
@@ -16,7 +16,9 @@ const BookingSchema = new mongoose.Schema({
     balanceDueDate: { type: Date },
     numGuests: { type: Number },
     guests: { type: [GuestSchema] },
-}, { timestamps: true })
+},
+ { versionKey: false }
+)
 
 type BookingType = mongoose.InferSchemaType<typeof BookingSchema>
 

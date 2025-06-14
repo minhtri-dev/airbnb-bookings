@@ -1,14 +1,16 @@
 import mongoose from 'mongoose'
 
 const ClientSchema = new mongoose.Schema({
-    clientId: { type: mongoose.Schema.Types.ObjectId, required: true },
+    clientId: { type: mongoose.Schema.Types.ObjectId },
     name: { type: String },
     emailAddress: { type: String },
     daytimePhoneNumber: { type: String },
     mobileNumber: { type: String },
     postalAddress: { type: String },
     homeAddress: { type: String },
-}, { timestamps: true })
+},
+ { versionKey: false }
+)
 
 type ClientType = mongoose.InferSchemaType<typeof ClientSchema>
 

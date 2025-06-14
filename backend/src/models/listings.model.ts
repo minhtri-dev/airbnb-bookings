@@ -107,7 +107,9 @@ const ListingSchema = new mongoose.Schema({
     availability: AvailabilitySchema,
     review_scores: ReviewScoresSchema,
     reviews: [ReviewSchema],
-}, { timestamps: true })
+},
+ { versionKey: false }
+)
 
 type ListingType = mongoose.InferSchemaType<typeof ListingSchema>
 
