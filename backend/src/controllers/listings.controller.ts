@@ -39,7 +39,7 @@ export const getFilteredListings = async (
   res: Response,
 ): Promise<void> => {
   try {
-    const { location, propertyType, bedrooms } = req.query
+    const { location, property_type, bedrooms } = req.query
     if (!location) {
       res.status(400).json({ error: 'Location is required' })
       return
@@ -47,7 +47,7 @@ export const getFilteredListings = async (
     const numberOfBedrooms = bedrooms ? parseInt(bedrooms as string, 10) : undefined
     const page = req.query.page ? parseInt(req.query.page as string, 10) : 1
     const limit = req.query.limit ? parseInt(req.query.limit as string, 10) : 5
-    const listings = await searchListings(location as string, propertyType as string, numberOfBedrooms, page, limit)
+    const listings = await searchListings(location as string, property_type as string, numberOfBedrooms, page, limit)
     res.json(listings)
   } catch (error) {
     console.error(error)

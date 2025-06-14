@@ -14,12 +14,12 @@ export const fetchListingById = async (id: string) => {
   return await ListingModel.findById(id)
 }
 
-export const searchListings = async (location: string, propertyType?: string, bedrooms?: number, page = 1, limit = 10) => {
+export const searchListings = async (location: string, property_type?: string, bedrooms?: number, page = 1, limit = 10) => {
   const criteria: ListingCriteria = {
     "address.market": location,
   }
-  if (propertyType) {
-    criteria.property_type = propertyType
+  if (property_type) {
+    criteria.property_type = property_type
   }
   if (bedrooms !== undefined && !isNaN(bedrooms)) {
     criteria.bedrooms = bedrooms
