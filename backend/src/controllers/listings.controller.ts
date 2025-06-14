@@ -6,7 +6,9 @@ export const getListings = async (
   res: Response,
 ): Promise<void> => {
   try {
-    const listings = await fetchAllListings(5)
+    const page = req.query.page ? parseInt(req.query.page as string, 10) : 1
+    const limit = req.query.limit ? parseInt(req.query.limit as string, 10) : 5
+    const listings = await fetchAllListings(limit, page)
     res.json(listings)
   } catch (error) {
     console.error(error)
@@ -43,7 +45,9 @@ export const getFilteredListings = async (
       return
     }
     const numberOfBedrooms = bedrooms ? parseInt(bedrooms as string, 10) : undefined
-    const listings = await searchListings(location as string, propertyType as string, numberOfBedrooms)
+    const page = req.query.page ? parseInt(req.query.page as string, 10) : 1
+    const limit = req.query.limit ? parseInt(req.query.limit as string, 10) : 5
+    const listings = await searchListings(location as string, propertyType as string, numberOfBedrooms, page, limit)
     res.json(listings)
   } catch (error) {
     console.error(error)

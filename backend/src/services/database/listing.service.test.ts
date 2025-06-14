@@ -7,11 +7,9 @@ import { fetchAllListings, fetchListingById, searchListings } from './listing.se
 import { ListingModel } from '@/models/listings.model'
 
 // A JSON reviver to convert MongoDB Extended JSON objects to native JS types.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function reviver(key: string, value: any) {
   if (value && typeof value === 'object') {
     if ('$date' in value) {
-      // Handle nested $numberLong if necessary.
       if (value.$date && typeof value.$date === 'object' && '$numberLong' in value.$date) {
         return new Date(parseInt(value.$date.$numberLong, 10))
       }
@@ -48,7 +46,6 @@ describe('Listing Service Tests', () => {
     // Clear the database before each test.
     await ListingModel.deleteMany({})
 
-    // /home/minhtri/vscode/RMIT/2025/DBA/airbnb-bookings/backend/tests/fixtures/listings.json
     const dataPath = path.join(__dirname, '../../../tests/fixtures/listings.json')
     const fileData = await fs.readFile(dataPath, 'utf-8')
     const listings = JSON.parse(fileData, reviver)
@@ -57,8 +54,8 @@ describe('Listing Service Tests', () => {
   })
 
   it('should fetch all listings with limit', async () => {
-    const listings = await fetchAllListings(1)
-    expect(listings.length).toBe(1)
+    const result = await fetchAllListings(1) // result will be paginate result object
+    expect(result.docs.length).toBe(1)
   })
 
   it('should fetch listing by id', async () => {
@@ -68,17 +65,18 @@ describe('Listing Service Tests', () => {
   })
 
   it('should search listings based on location', async () => {
-    const listings = await searchListings("Porto")
-    expect(listings.length).toBeGreaterThan(0)
-    listings.forEach((listing) => {
+    const result = await searchListings("Porto")
+    expect(result.docs.length).toBeGreaterThan(0)
+    result.docs.forEach((listing) => {
       expect(listing.address?.market).toBe("Porto")
     })
   })
 
   it('should search listings based on location, propertyType, and bedrooms', async () => {
-    const listings = await searchListings("Porto", "House", 3)
-    expect(listings[0]?.name).toBe("Ribeira Charming Duplex")
-    expect(listings[0].property_type).toBe("House")
-    expect(listings[0].bedrooms).toBe(3)
+    const result = await searchListings("Porto", "House", 3)
+    const listing = result.docs[0]
+    expect(listing?.name).toBe("Ribeira Charming Duplex")
+    expect(listing?.property_type).toBe("House")
+    expect(listing?.bedrooms).toBe(3)
   })
 })

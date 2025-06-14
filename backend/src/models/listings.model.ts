@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import mongoosePaginate from 'mongoose-paginate-v2'
 
 const ReviewSchema = new mongoose.Schema({
     _id: { type: String, required: true },
@@ -108,4 +109,10 @@ const ListingSchema = new mongoose.Schema({
     reviews: [ReviewSchema],
 }, { timestamps: true })
 
-export const ListingModel = mongoose.model('listings', ListingSchema)
+type ListingType = mongoose.InferSchemaType<typeof ListingSchema>
+
+ListingSchema.plugin(mongoosePaginate)
+
+const ListingModel = mongoose.model<ListingType, mongoose.PaginateModel<ListingType>>('listings', ListingSchema)
+
+export { ListingModel, ListingType }

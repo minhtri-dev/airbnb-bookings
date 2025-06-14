@@ -6,19 +6,15 @@ interface ListingCriteria {
   bedrooms?: number;
 }
 
-export const fetchAllListings = async (limit?: number) => {
-  const query = ListingModel.find()
-  if (limit) {
-    query.limit(limit)
-  }
-  return await query.exec()
+export const fetchAllListings = async (limit = 10, page = 1) => {
+  return await ListingModel.paginate({}, { limit, page })
 }
 
 export const fetchListingById = async (id: string) => {
   return await ListingModel.findById(id)
 }
 
-export const searchListings = async (location: string, propertyType?: string, bedrooms?: number) => {
+export const searchListings = async (location: string, propertyType?: string, bedrooms?: number, page = 1, limit = 10) => {
   const criteria: ListingCriteria = {
     "address.market": location,
   }
@@ -28,5 +24,5 @@ export const searchListings = async (location: string, propertyType?: string, be
   if (bedrooms !== undefined && !isNaN(bedrooms)) {
     criteria.bedrooms = bedrooms
   }
-  return await ListingModel.find(criteria).exec()
+  return await ListingModel.paginate(criteria, { limit, page })
 }
