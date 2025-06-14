@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { contollerFunction } from '../controllers/controller'
+import { contollerFunction } from '@/controllers/controller'
 
 const router = Router()
 
