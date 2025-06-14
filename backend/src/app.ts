@@ -1,9 +1,9 @@
 import express from 'express'
 import cors from 'cors'
 
-import routes from './routes'
-import { errorHandler } from './middlewares/errorHandler'
-import { connectDatabase } from './services/db.service'
+import routes from 'routes'
+import { errorHandler } from '@/middlewares/errorHandler'
+import { connectDatabase } from '@/services/database/db.service'
 
 const app = express();
 

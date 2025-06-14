@@ -10,6 +10,8 @@ createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Pages.Home />} />
+        <Route path="/bookings" element={<Pages.Bookings />} />
+        <Route path="*" element={<Pages.NotFound />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
