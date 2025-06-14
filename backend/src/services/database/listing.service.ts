@@ -1,9 +1,32 @@
 import { ListingModel } from '@/models/listings.model'
 
-export const getAllListings = async () => {
-  return await ListingModel.find().limit(10)
+interface ListingCriteria {
+  "address.market": string;
+  property_type?: string;
+  bedrooms?: number;
 }
 
-export const getListingById = async (id: string) => {
+export const fetchAllListings = async (limit?: number) => {
+  const query = ListingModel.find()
+  if (limit) {
+    query.limit(limit)
+  }
+  return await query.exec()
+}
+
+export const fetchListingById = async (id: string) => {
   return await ListingModel.findById(id)
+}
+
+export const searchListings = async (location: string, propertyType?: string, bedrooms?: number) => {
+  const criteria: ListingCriteria = {
+    "address.market": location,
+  }
+  if (propertyType) {
+    criteria.property_type = propertyType
+  }
+  if (bedrooms !== undefined && !isNaN(bedrooms)) {
+    criteria.bedrooms = bedrooms
+  }
+  return await ListingModel.find(criteria).exec()
 }
