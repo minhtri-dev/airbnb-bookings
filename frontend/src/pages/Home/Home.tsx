@@ -82,11 +82,11 @@ const Home = () => {
   const propertyCards = listings.map((listing) => (
     <PropertyCard
       key={listing._id}
+      id={listing._id}
       name={listing.name ?? 'No Name'}
       description={listing.summary ?? listing.description ?? ''}
       rating={listing.review_scores?.review_scores_rating ?? 0}
       price={listing.price ?? 0}
-      listingUrl={listing.listing_url ?? '#'}
     />
   ))
 

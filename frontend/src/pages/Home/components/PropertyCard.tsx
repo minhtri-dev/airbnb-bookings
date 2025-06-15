@@ -1,15 +1,15 @@
 interface PropertyCardProps {
+    id: string;
     name: string;
     description: string;
     rating: number;
     price: number;
-    listingUrl: string;
 }
 
-const PropertyCard: React.FC<PropertyCardProps> = ({ name, description, rating, price, listingUrl }) => {
+const PropertyCard: React.FC<PropertyCardProps> = ({ id, name, description, rating, price }) => {
   return (
     <div className="bg-white shadow p-4 rounded">
-      <a href={listingUrl} className="text-xl font-bold text-blue-600 hover:underline">
+      <a href={`/booking/${id}`} className="text-xl font-bold text-blue-600 hover:underline">
         {name}
       </a>
       <p className="text-gray-700 mt-2">
