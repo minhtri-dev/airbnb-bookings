@@ -6,7 +6,6 @@ const GuestSchema = new mongoose.Schema({
 }, { _id: false })
 
 const BookingSchema = new mongoose.Schema({
-    bookingId: { type: mongoose.Schema.Types.ObjectId },
     clientId: { type: mongoose.Schema.Types.ObjectId, ref: 'clients', },
     listingId: { type: String, ref: 'listings', required: true },
     startDate: { type: Date, required: true },
