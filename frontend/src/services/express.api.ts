@@ -63,3 +63,15 @@ export async function getListingbyId(listing_id: string): Promise<IListing | nul
     throw error
   }
 }
+
+export async function createBookingAndClient(data: any): Promise<void> {
+  try {
+    await axios.post(`${API_URL}/booking/create/newClient`, data)
+    return 
+  } catch (error: any) {
+    if (error.response && error.response.status === 404) {
+      console.error("Error creating new booking/client:", error.response)
+      throw error
+    }
+  }
+}
