@@ -1,8 +1,7 @@
-import { useState } from 'react'
-
+import { useState, useEffect } from 'react'
 import { PropertyFilterForm, PropertyCard } from './components'
 import type { IListing } from 'interfaces/Listing'
-import { fetchListings } from 'services/express.api'
+import { fetchListings, fetchFilteredListings } from 'services/express.api'
 import { Loading } from '@components'
 
 const PAGE_SIZE = 5
@@ -18,6 +17,17 @@ const Home = () => {
   })
   const [isLoading, setIsLoading] = useState(false)
 
+  useEffect(() => {
+    setIsLoading(true)
+    async function loadListings() {
+      const response = await fetchListings(1, PAGE_SIZE)
+      setListings(response.docs)
+      setTotalPages(response.totalPages)
+      setIsLoading(false)
+    }
+    void loadListings()
+  }, [])
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setIsLoading(true)
@@ -30,7 +40,13 @@ const Home = () => {
       setFilters({ location, propertyType, bedrooms })
       setCurrentPage(1)
 
-      const data = await fetchListings(location, propertyType, bedrooms, 1, PAGE_SIZE)
+      const data = await fetchFilteredListings(
+        location,
+        propertyType,
+        bedrooms,
+        1,
+        PAGE_SIZE,
+      )
       setListings(data.docs)
       setTotalPages(data.totalPages)
     } catch (error) {
@@ -46,7 +62,18 @@ const Home = () => {
     try {
       setCurrentPage(page)
       const { location, propertyType, bedrooms } = filters
-      const data = await fetchListings(location, propertyType, bedrooms, page, PAGE_SIZE)
+      let data
+      if (location === '') {
+        data = await fetchListings(page, PAGE_SIZE)
+      } else {
+        data = await fetchFilteredListings(
+          location,
+          propertyType,
+          bedrooms,
+          page,
+          PAGE_SIZE,
+        )
+      }
       setListings(data.docs)
       setTotalPages(data.totalPages)
     } catch (error) {
@@ -59,11 +86,11 @@ const Home = () => {
   const propertyCards = listings.map((listing) => (
     <PropertyCard
       key={listing._id}
+      id={listing._id}
       name={listing.name ?? 'No Name'}
       description={listing.summary ?? listing.description ?? ''}
       rating={listing.review_scores?.review_scores_rating ?? 0}
       price={listing.price ?? 0}
-      listingUrl={listing.listing_url ?? '#'}
     />
   ))
 
@@ -71,27 +98,29 @@ const Home = () => {
     <div className="min-h-screen bg-gray-100 p-4">
       {/* Show loading indicator */}
       {isLoading && <Loading />}
-      
+
       {/* Top Section: Filter Form */}
-      <div className="max-w-4xl mx-auto bg-white shadow p-6 mb-8 rounded">
-        <h2 className="text-2xl font-semibold mb-4">Filter Listings</h2>
+      <div className="mx-auto mb-8 max-w-4xl rounded bg-white p-6 shadow">
+        <h2 className="mb-4 text-2xl font-semibold">Filter Listings</h2>
         <PropertyFilterForm onSubmit={(e) => void handleSubmit(e)} />
       </div>
 
       {/* Listings Section */}
-      <div className="max-w-4xl mx-auto grid grid-cols-1 gap-6">
-        {propertyCards.length > 0 ? propertyCards : (
+      <div className="mx-auto grid max-w-4xl grid-cols-1 gap-6">
+        {propertyCards.length > 0 ? (
+          propertyCards
+        ) : (
           <div>No listings found. Try adjusting your search.</div>
         )}
       </div>
 
       {/* Pagination Controls */}
       {totalPages > 1 && (
-        <div className="max-w-4xl mx-auto flex justify-between items-center mt-8">
+        <div className="mx-auto mt-8 flex max-w-4xl items-center justify-between">
           <button
-            onClick={() => handlePageChange(currentPage - 1)}
+            onClick={() => void handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
-            className="px-4 py-2 bg-blue-500 text-white rounded disabled:bg-gray-300"
+            className="rounded bg-blue-500 px-4 py-2 text-white disabled:bg-gray-300"
           >
             Previous
           </button>
@@ -99,9 +128,9 @@ const Home = () => {
             Page {currentPage} of {totalPages}
           </span>
           <button
-            onClick={() => handlePageChange(currentPage + 1)}
+            onClick={() => void handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className="px-4 py-2 bg-blue-500 text-white rounded disabled:bg-gray-300"
+            className="rounded bg-blue-500 px-4 py-2 text-white disabled:bg-gray-300"
           >
             Next
           </button>

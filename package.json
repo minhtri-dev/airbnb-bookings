@@ -1,7 +1,7 @@
 {
-  "name": "fullstack-template",
+  "name": "airbnb",
   "version": "1.0.0",
-  "description": "Template for a fullstack application using Expressjs + TypeScript for backend and Vite + React + TypeScript for frontend",
+  "description": "A fullstack application using Expressjs + TypeScript for backend and Vite + React + TypeScript for frontend",
   "private": true,
   "scripts": {
     "dev": "concurrently \"npm run dev --workspace backend\" \"npm run dev --workspace frontend\"",
@@ -14,8 +14,5 @@
   ],
   "devDependencies": {
     "concurrently": "^9.1.2"
-  },
-  "dependencies": {
-    "@iconify-icon/react": "^3.0.0"
   }
 }

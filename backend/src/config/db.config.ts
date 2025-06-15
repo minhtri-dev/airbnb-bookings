@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 interface dbConfig {
-  URI: string | undefined,
+  URI: string | undefined
   DB_NAME: string | undefined
 }
 

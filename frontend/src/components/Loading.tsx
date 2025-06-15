@@ -6,7 +6,7 @@ const LoadingModal = () => {
       <div className="flex flex-col items-center space-y-4">
         <Icon
           icon="mdi:loading"
-          className="text-white animate-spin"
+          className="animate-spin text-white"
           width={48}
           height={48}
         />
