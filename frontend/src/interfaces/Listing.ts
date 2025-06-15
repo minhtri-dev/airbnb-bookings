@@ -1,6 +1,6 @@
 export interface Review {
   _id: string
-  date?: string // ISO date string
+  date?: string
   listing_id?: string
   reviewer_id?: string
   reviewer_name?: string
@@ -85,10 +85,10 @@ export interface IListing {
   minimum_nights?: string
   maximum_nights?: string
   cancellation_policy?: string
-  last_scraped?: string // ISO date string
-  calendar_last_scraped?: string // ISO date string
-  first_review?: string // ISO date string
-  last_review?: string // ISO date string
+  last_scraped?: string
+  calendar_last_scraped?: string
+  first_review?: string
+  last_review?: string
   accommodates?: number
   bedrooms?: number
   beds?: number
@@ -106,6 +106,6 @@ export interface IListing {
   availability?: Availability
   review_scores?: ReviewScores
   reviews?: Review[]
-  createdAt?: string // ISO date string (if using timestamps)
-  updatedAt?: string // ISO date string (if using timestamps)
+  createdAt?: string
+  updatedAt?: string
 }
