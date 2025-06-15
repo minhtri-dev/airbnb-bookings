@@ -11,6 +11,7 @@ createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route path="/" element={<Pages.Home />} />
         <Route path="/booking/:listing_id" element={<Pages.Bookings />} />s
+        <Route path="/confirmation" element={<Pages.BookingsConfirm />} />s
         <Route path="*" element={<Pages.NotFound />} />
       </Routes>
     </BrowserRouter>

@@ -77,7 +77,8 @@ const Bookings = () => {
     }
     console.log('Booking Details Submitted:', bookingDetails)
     await createBookingAndClient(bookingDetails)
-    console.log("data sucessfully uploaded")
+    console.log("data successfully uploaded")
+    navigate('/confirmation')
   }
 
   if (isLoading) {
