@@ -1,5 +1,9 @@
 import { Router } from 'express'
-import { getUnavailabilities, createBooking, createBookingAndClient } from '@/controllers/bookings.controller'
+import {
+  getUnavailabilities,
+  createBooking,
+  createBookingAndClient,
+} from '@/controllers/bookings.controller'
 
 const router = Router()
 

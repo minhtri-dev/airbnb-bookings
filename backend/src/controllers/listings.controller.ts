@@ -1,5 +1,9 @@
 import { Request, Response } from 'express'
-import { fetchAllListings, fetchListingById, searchListings } from '@/services/database/listings.service'
+import {
+  fetchAllListings,
+  fetchListingById,
+  searchListings,
+} from '@/services/database/listings.service'
 
 export const getListings = async (
   req: Request,
@@ -44,10 +48,18 @@ export const getFilteredListings = async (
       res.status(400).json({ error: 'Location is required' })
       return
     }
-    const numberOfBedrooms = bedrooms ? parseInt(bedrooms as string, 10) : undefined
+    const numberOfBedrooms = bedrooms
+      ? parseInt(bedrooms as string, 10)
+      : undefined
     const page = req.query.page ? parseInt(req.query.page as string, 10) : 1
     const limit = req.query.limit ? parseInt(req.query.limit as string, 10) : 5
-    const listings = await searchListings(location as string, property_type as string, numberOfBedrooms, page, limit)
+    const listings = await searchListings(
+      location as string,
+      property_type as string,
+      numberOfBedrooms,
+      page,
+      limit,
+    )
     res.json(listings)
   } catch (error) {
     console.error(error)

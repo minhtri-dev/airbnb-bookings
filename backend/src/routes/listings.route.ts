@@ -1,5 +1,9 @@
 import { Router } from 'express'
-import { getListings, getListingbyId, getFilteredListings } from '@/controllers/listings.controller'
+import {
+  getListings,
+  getListingbyId,
+  getFilteredListings,
+} from '@/controllers/listings.controller'
 
 const router = Router()
 

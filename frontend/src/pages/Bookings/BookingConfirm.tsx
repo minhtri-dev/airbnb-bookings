@@ -1,8 +1,11 @@
 const BookingsConfirm = () => {
   return (
-    <div className="max-w-2xl mx-auto my-10 p-6 bg-gray-100 rounded text-center">
-      <h2 className="text-2xl font-bold mb-4">Booking Confirmed!</h2>
-      <p className="mb-6">Thank you for your booking. Your booking details have been successfully recorded.</p>
+    <div className="mx-auto my-10 max-w-2xl rounded bg-gray-100 p-6 text-center">
+      <h2 className="mb-4 text-2xl font-bold">Booking Confirmed!</h2>
+      <p className="mb-6">
+        Thank you for your booking. Your booking details have been successfully
+        recorded.
+      </p>
       <a href="/" className="text-blue-500 hover:underline">
         Return to Homepage
       </a>

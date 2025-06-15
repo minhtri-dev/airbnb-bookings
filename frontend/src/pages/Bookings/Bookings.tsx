@@ -22,27 +22,31 @@ const Bookings = () => {
   useEffect(() => {
     const validateAndFetchListing = async () => {
       if (!listing_id) {
-        navigate('/')
+        void navigate('/')
         return
       }
       try {
         const listingFetched = await getListingbyId(listing_id)
         if (!listingFetched) {
-          navigate('/')
+          void navigate('/')
         } else {
           setListing(listingFetched)
           setIsLoading(false)
         }
       } catch (error) {
         console.error(error)
-        navigate('/')
+        void navigate('/')
       }
     }
-    validateAndFetchListing()
+    void validateAndFetchListing()
   }, [listing_id, navigate])
 
   // Update dates and conflict flag received from Calendar component
-  const handleDatesChange = (start: string | null, end: string | null, conflict: boolean) => {
+  const handleDatesChange = (
+    start: string | null,
+    end: string | null,
+    conflict: boolean,
+  ) => {
     setBookingStartDate(start)
     setBookingEndDate(end)
     setDateConflict(conflict)
@@ -55,14 +59,18 @@ const Bookings = () => {
       return
     }
     // Validate that all client fields are filled
-    const hasEmptyField = Object.values(client).some(val => !val.trim())
+    // Type-cast to string[] if the client values are known to be strings
+    const clientValues = Object.values(client) as string[]
+    const hasEmptyField = clientValues.some((val) => !val.trim())
     if (hasEmptyField) {
       alert('Please fill out all the fields before submitting.')
       return
     }
     // Validate date range conflicts using the flag from Calendar
     if (dateConflict) {
-      alert('The selected date range conflicts with existing bookings. Please choose a different range.')
+      alert(
+        'The selected date range conflicts with existing bookings. Please choose a different range.',
+      )
       return
     }
 
@@ -72,13 +80,13 @@ const Bookings = () => {
       booking: {
         listingId: listing_id,
         startDate: bookingStartDate,
-        endDate: bookingEndDate
-      }
+        endDate: bookingEndDate,
+      },
     }
     console.log('Booking Details Submitted:', bookingDetails)
     await createBookingAndClient(bookingDetails)
-    console.log("data successfully uploaded")
-    navigate('/confirmation')
+    console.log('data successfully uploaded')
+    void navigate('/confirmation')
   }
 
   if (isLoading) {
@@ -86,16 +94,20 @@ const Bookings = () => {
   }
 
   return (
-    <div className="max-w-2xl mx-auto my-10 p-6 bg-gray-100 rounded">
-      <h2 className="text-2xl font-bold mb-4">
+    <div className="mx-auto my-10 max-w-2xl rounded bg-gray-100 p-6">
+      <h2 className="mb-4 text-2xl font-bold">
         Bookings for Listing: {listing?.name || listing_id}
       </h2>
       <div className="mb-6">
-        <h3 className="text-xl font-semibold mb-2">Select Booking Dates</h3>
+        <h3 className="mb-2 text-xl font-semibold">Select Booking Dates</h3>
         <Calendar listingId={listing_id!} onDatesChange={handleDatesChange} />
       </div>
-      {/* ClientForm receives the submission handler as an onSubmit prop */}
-      <ClientForm onSubmit={handleClientFormSubmit} />
+      {/* Wrap the async callback to satisfy the expected void return */}
+      <ClientForm
+        onSubmit={(client: IClient) => {
+          void handleClientFormSubmit(client)
+        }}
+      />
     </div>
   )
 }

@@ -1,23 +1,30 @@
 import mongoose from 'mongoose'
 import mongoosePaginate from 'mongoose-paginate-v2'
 
-const ReviewSchema = new mongoose.Schema({
+const ReviewSchema = new mongoose.Schema(
+  {
     _id: { type: String, required: true },
     date: Date,
     listing_id: String,
     reviewer_id: String,
     reviewer_name: String,
     comments: String,
-}, { _id: false })
+  },
+  { _id: false },
+)
 
-const ImagesSchema = new mongoose.Schema({
+const ImagesSchema = new mongoose.Schema(
+  {
     thumbnail_url: String,
     medium_url: String,
     picture_url: String,
     xl_picture_url: String,
-}, { _id: false })
+  },
+  { _id: false },
+)
 
-const AddressSchema = new mongoose.Schema({
+const AddressSchema = new mongoose.Schema(
+  {
     street: String,
     suburb: String,
     government_area: String,
@@ -25,13 +32,16 @@ const AddressSchema = new mongoose.Schema({
     country: String,
     country_code: String,
     location: {
-        type: { type: String, default: "Point" },
-        coordinates: [Number],
-        is_location_exact: Boolean,
+      type: { type: String, default: 'Point' },
+      coordinates: [Number],
+      is_location_exact: Boolean,
     },
-}, { _id: false })
+  },
+  { _id: false },
+)
 
-const HostSchema = new mongoose.Schema({
+const HostSchema = new mongoose.Schema(
+  {
     host_id: String,
     host_url: String,
     host_name: String,
@@ -48,16 +58,22 @@ const HostSchema = new mongoose.Schema({
     host_listings_count: Number,
     host_total_listings_count: Number,
     host_verifications: [String],
-}, { _id: false })
+  },
+  { _id: false },
+)
 
-const AvailabilitySchema = new mongoose.Schema({
+const AvailabilitySchema = new mongoose.Schema(
+  {
     availability_30: Number,
     availability_60: Number,
     availability_90: Number,
     availability_365: Number,
-}, { _id: false })
+  },
+  { _id: false },
+)
 
-const ReviewScoresSchema = new mongoose.Schema({
+const ReviewScoresSchema = new mongoose.Schema(
+  {
     review_scores_accuracy: Number,
     review_scores_cleanliness: Number,
     review_scores_checkin: Number,
@@ -65,9 +81,12 @@ const ReviewScoresSchema = new mongoose.Schema({
     review_scores_location: Number,
     review_scores_value: Number,
     review_scores_rating: Number,
-}, { _id: false })
+  },
+  { _id: false },
+)
 
-const ListingSchema = new mongoose.Schema({
+const ListingSchema = new mongoose.Schema(
+  {
     _id: String,
     listing_url: String,
     name: String,
@@ -107,14 +126,17 @@ const ListingSchema = new mongoose.Schema({
     availability: AvailabilitySchema,
     review_scores: ReviewScoresSchema,
     reviews: [ReviewSchema],
-},
- { versionKey: false }
+  },
+  { versionKey: false },
 )
 
 type ListingType = mongoose.InferSchemaType<typeof ListingSchema>
 
 ListingSchema.plugin(mongoosePaginate)
 
-const ListingModel = mongoose.model<ListingType, mongoose.PaginateModel<ListingType>>('listings', ListingSchema)
+const ListingModel = mongoose.model<
+  ListingType,
+  mongoose.PaginateModel<ListingType>
+>('listings', ListingSchema)
 
 export { ListingModel, ListingType }

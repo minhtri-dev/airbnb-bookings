@@ -6,8 +6,10 @@ const { URI, DB_NAME } = config
 export const connectDatabase = async (): Promise<void> => {
   try {
     if (URI) {
-      await mongoose.connect(URI+DB_NAME)
-      console.log(`Connected to MongoDB server using defined URI: ${URI+DB_NAME}`)
+      await mongoose.connect(URI + DB_NAME)
+      console.log(
+        `Connected to MongoDB server using defined URI: ${URI + DB_NAME}`,
+      )
     } else {
       throw new Error(
         'No MongoDB URI defined. Please check environment variables.',

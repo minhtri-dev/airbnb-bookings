@@ -2,15 +2,25 @@ import { Request, Response } from 'express'
 
 import { ClientModel } from '@/models/clients.model'
 
-export const addClient = async (
-  req: Request,
-  res: Response,
-): Promise<void> => {
+export const addClient = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { name, emailAddress, daytimePhoneNumber, mobileNumber, postalAddress, homeAddress } = req.body
+    const {
+      name,
+      emailAddress,
+      daytimePhoneNumber,
+      mobileNumber,
+      postalAddress,
+      homeAddress,
+    } = req.body
 
-
-    ClientModel.insertOne({name, emailAddress, daytimePhoneNumber, mobileNumber, postalAddress, homeAddress})
+    ClientModel.insertOne({
+      name,
+      emailAddress,
+      daytimePhoneNumber,
+      mobileNumber,
+      postalAddress,
+      homeAddress,
+    })
     res.json()
   } catch (error) {
     console.error(error)

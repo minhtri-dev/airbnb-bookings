@@ -5,9 +5,9 @@ import routes from 'routes'
 import { errorHandler } from '@/middlewares/errorHandler'
 import { connectDatabase } from '@/services/database/db.service'
 
-const app = express();
+const app = express()
 
-(async () => {
+;(async () => {
   try {
     await connectDatabase()
 
@@ -21,7 +21,6 @@ const app = express();
     )
     app.use('/api', routes)
     app.use(errorHandler)
-
   } catch (error) {
     console.error('App configuration error:', error)
     process.exit(1)

@@ -27,7 +27,7 @@ export const createBooking = async (
     const { id } = req.params
     const bookingData: BookingType = req.body.booking
 
-    BookingModel.insertOne({ ...bookingData, clientId: id})
+    BookingModel.insertOne({ ...bookingData, clientId: id })
     res.json()
   } catch (error) {
     console.error(error)
@@ -44,9 +44,9 @@ export const createBookingAndClient = async (
     const client = await ClientModel.insertOne(clientData)
 
     const bookingData: BookingType = req.body.booking
-    const _bookingData: BookingType = { ...bookingData, clientId: client._id} 
+    const _bookingData: BookingType = { ...bookingData, clientId: client._id }
     BookingModel.insertOne(_bookingData)
-    
+
     res.json()
   } catch (error) {
     console.error(error)

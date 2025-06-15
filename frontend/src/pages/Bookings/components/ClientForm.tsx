@@ -28,10 +28,13 @@ const ClientForm: React.FC<ClientFormProps> = ({ onSubmit }) => {
         e.preventDefault()
         onSubmit(client)
       }}
-      className="bg-white p-6 rounded shadow"
+      className="rounded bg-white p-6 shadow"
     >
       <div className="mb-4">
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="name"
+          className="block text-sm font-medium text-gray-700"
+        >
           Your Name:
         </label>
         <input
@@ -40,13 +43,16 @@ const ClientForm: React.FC<ClientFormProps> = ({ onSubmit }) => {
           id="name"
           value={client.name}
           onChange={handleInputChange}
-          className="mt-1 block w-full p-2 border border-gray-300 rounded"
+          className="mt-1 block w-full rounded border border-gray-300 p-2"
           required
         />
       </div>
-  
+
       <div className="mb-4">
-        <label htmlFor="emailAddress" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="emailAddress"
+          className="block text-sm font-medium text-gray-700"
+        >
           Email Address:
         </label>
         <input
@@ -55,13 +61,16 @@ const ClientForm: React.FC<ClientFormProps> = ({ onSubmit }) => {
           id="emailAddress"
           value={client.emailAddress}
           onChange={handleInputChange}
-          className="mt-1 block w-full p-2 border border-gray-300 rounded"
+          className="mt-1 block w-full rounded border border-gray-300 p-2"
           required
         />
       </div>
-  
+
       <div className="mb-4">
-        <label htmlFor="daytimePhoneNumber" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="daytimePhoneNumber"
+          className="block text-sm font-medium text-gray-700"
+        >
           Daytime Phone Number:
         </label>
         <input
@@ -70,13 +79,16 @@ const ClientForm: React.FC<ClientFormProps> = ({ onSubmit }) => {
           id="daytimePhoneNumber"
           value={client.daytimePhoneNumber}
           onChange={handleInputChange}
-          className="mt-1 block w-full p-2 border border-gray-300 rounded"
+          className="mt-1 block w-full rounded border border-gray-300 p-2"
           required
         />
       </div>
-  
+
       <div className="mb-4">
-        <label htmlFor="mobileNumber" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="mobileNumber"
+          className="block text-sm font-medium text-gray-700"
+        >
           Mobile Number:
         </label>
         <input
@@ -85,13 +97,16 @@ const ClientForm: React.FC<ClientFormProps> = ({ onSubmit }) => {
           id="mobileNumber"
           value={client.mobileNumber}
           onChange={handleInputChange}
-          className="mt-1 block w-full p-2 border border-gray-300 rounded"
+          className="mt-1 block w-full rounded border border-gray-300 p-2"
           required
         />
       </div>
-  
+
       <div className="mb-4">
-        <label htmlFor="postalAddress" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="postalAddress"
+          className="block text-sm font-medium text-gray-700"
+        >
           Postal Address:
         </label>
         <input
@@ -100,13 +115,16 @@ const ClientForm: React.FC<ClientFormProps> = ({ onSubmit }) => {
           id="postalAddress"
           value={client.postalAddress}
           onChange={handleInputChange}
-          className="mt-1 block w-full p-2 border border-gray-300 rounded"
+          className="mt-1 block w-full rounded border border-gray-300 p-2"
           required
         />
       </div>
-  
+
       <div className="mb-4">
-        <label htmlFor="homeAddress" className="block text-sm font-medium text-gray-700">
+        <label
+          htmlFor="homeAddress"
+          className="block text-sm font-medium text-gray-700"
+        >
           Residential Address:
         </label>
         <input
@@ -115,14 +133,14 @@ const ClientForm: React.FC<ClientFormProps> = ({ onSubmit }) => {
           id="homeAddress"
           value={client.homeAddress}
           onChange={handleInputChange}
-          className="mt-1 block w-full p-2 border border-gray-300 rounded"
+          className="mt-1 block w-full rounded border border-gray-300 p-2"
           required
         />
       </div>
-  
+
       <button
         type="submit"
-        className="w-full py-2 px-4 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-200"
+        className="w-full rounded bg-blue-600 px-4 py-2 text-white transition duration-200 hover:bg-blue-700"
       >
         Submit
       </button>
