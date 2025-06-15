@@ -48,3 +48,15 @@ export async function fetchListings(
     throw error
   }
 }
+
+export async function validateListingId(listing_id: string): Promise<boolean> {
+  try {
+    const response = await axios.get(`${API_URL}/api/listings/${listing_id}`)
+    return response.status === 200
+  } catch (error: any) {
+    if (error.response && error.response.status === 404) {
+      return false
+    }
+    throw error
+  }
+}
