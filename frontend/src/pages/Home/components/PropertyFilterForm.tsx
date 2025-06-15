@@ -4,6 +4,21 @@ interface FiltersFormProps {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void
 }
 
+// Updated property types based on the provided labels
+const propertyTypes = [
+  { value: '', label: 'Any' },
+  { value: 'Aparthotel', label: 'Aparthotel' },
+  { value: 'Apartment', label: 'Apartment' },
+  { value: 'Barn', label: 'Barn' },
+  { value: 'Bed and breakfast', label: 'Bed and breakfast' },
+  { value: 'Boat', label: 'Boat' },
+  { value: 'Boutique hotel', label: 'Boutique hotel' },
+  { value: 'Bungalow', label: 'Bungalow' },
+  { value: 'Cabin', label: 'Cabin' },
+  { value: 'Camper/RV', label: 'Camper/RV' },
+  { value: 'Campsite', label: 'Campsite' },
+]
+
 const FiltersForm: React.FC<FiltersFormProps> = ({ onSubmit }) => {
   return (
     <form
@@ -38,11 +53,11 @@ const FiltersForm: React.FC<FiltersFormProps> = ({ onSubmit }) => {
           name="propertyType"
           className="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:border-blue-300"
         >
-          <option value="">Any</option>
-          <option value="Apartment">Apartment</option>
-          <option value="House">House</option>
-          <option value="Condo">Condo</option>
-          <option value="Villa">Villa</option>
+          {propertyTypes.map((type) => (
+            <option key={type.value} value={type.value}>
+              {type.label}
+            </option>
+          ))}
         </select>
       </div>
       <div>
