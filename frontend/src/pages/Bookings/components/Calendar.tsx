@@ -56,8 +56,14 @@ const Calendar: React.FC<CalendarProps> = ({ listingId, onDatesChange }) => {
     [unavailableDates],
   )
 
-  // Whenever the dates change, convert them to ISO strings and notify parent
+  // Check for invalid date range (start date later than end date)
   useEffect(() => {
+    if (startDate && endDate && startDate > endDate) {
+      const startISO = startDate.toISOString()
+      const endISO = endDate.toISOString()
+      onDatesChange(startISO, endISO, true)
+      return
+    }
     const conflict = dateRangeHasConflict(startDate, endDate)
     const startISO = startDate ? startDate.toISOString() : null
     const endISO = endDate ? endDate.toISOString() : null
@@ -87,6 +93,7 @@ const Calendar: React.FC<CalendarProps> = ({ listingId, onDatesChange }) => {
         <DatePicker
           selected={endDate}
           onChange={(date: Date | null) => setEndDate(date)}
+          // Set minDate to startDate (or today) to help prevent invalid ranges
           minDate={startDate || new Date()}
           excludeDates={unavailableDates}
           dateFormat="yyyy-MM-dd"
